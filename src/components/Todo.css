@@ -1,15 +1,25 @@
 .todo {
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.514);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .todo:hover {
-  background: grey;
+  background: lightgoldenrodyellow;
+}
+
+.todo--incomplete {
+  /* background: dodgerblue; */
 }
 
 .todo--complete {
   /* background: red; */
+  color: lightgray;
 }
-.todo--incomplete {
-  /* background: dodgerblue; */
+
+.todo button {
+  margin-left: 10px;
+  height: 100%;
 }

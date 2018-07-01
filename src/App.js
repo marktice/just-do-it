@@ -42,7 +42,6 @@ class App extends Component {
     console.log(`hello from handleAddTodo, text: ${text}`);
     try {
       const todo = await todoAPI.addTodo(text, this.state.authToken);
-      console.log(todo);
       if (todo) {
         this.setState((prevState) => {
           return {
@@ -61,7 +60,6 @@ class App extends Component {
     console.log(`hello from handleDeleteTodo, id: ${id}`);
     try {
       const todo = await todoAPI.deleteTodo(id, this.state.authToken);
-      console.log(`deleted todo: ${todo.text}`);
       if (todo) {
         this.setState((prevState) => {
           return {
@@ -80,7 +78,6 @@ class App extends Component {
     console.log(`hello from handleCompleteTodo, id: ${id}`);
     try {
       const completedTodo = await todoAPI.completeTodo(id, this.state.authToken);
-      console.log(`completed todo: ${completedTodo.text}`);
       if (completedTodo) {
         this.setState((prevState) => {
           return {
@@ -133,21 +130,23 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Mark's Todos</h1>
         </header>
-        <AddTodoForm handleAddTodo={this.handleAddTodo} />
-        <h3>Todos</h3>
-        <Todos
-          className="todos--incomplete"
-          todos={inCompleteTodos}
-          handleDeleteTodo={this.handleDeleteTodo}
-          handleCompleteTodo={this.handleCompleteTodo}
-        />
-        <h3>Completed</h3>
-        <Todos
-          className="todos--complete"
-          todos={completeTodos}
-          handleDeleteTodo={this.handleDeleteTodo}
-          handleCompleteTodo={this.handleCompleteTodo}
-        />
+        <div className="container">
+          <AddTodoForm handleAddTodo={this.handleAddTodo} />
+          <h3>Todos</h3>
+          <Todos
+            className="todos--incomplete"
+            todos={inCompleteTodos}
+            handleDeleteTodo={this.handleDeleteTodo}
+            handleCompleteTodo={this.handleCompleteTodo}
+          />
+          <h3>Completed</h3>
+          <Todos
+            className="todos--complete"
+            todos={completeTodos}
+            handleDeleteTodo={this.handleDeleteTodo}
+            handleCompleteTodo={this.handleCompleteTodo}
+          />
+        </div>
       </div>
     );
   }

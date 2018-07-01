@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+
 import './Todo.css';
 
 const Todo = ({
@@ -9,13 +11,11 @@ const Todo = ({
   handleDeleteTodo,
   handleCompleteTodo
 }) => {
-  // const completedDate = new Date(completedAt);
-  // console.log(completedDate);
   return (
     <div className={completed ? 'todo todo--complete' : 'todo todo--incomplete'}>
-      {completed && <p>{completedAt}</p>}
       <p>{text}</p>
       <div>
+        {completed && <span>{moment(completedAt).format('MMM Do, h:ma')}</span>}
         {!completed && <button onClick={(e) => handleCompleteTodo(_id)}>√</button>}
         <button onClick={(e) => handleDeleteTodo(_id)}>X</button>
       </div>
