@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import todoAPI from './api/todoAPI';
 
 import LoginForm from './components/LoginForm';
+import AddTodoForm from './components/AddTodoForm';
 import Todos from './components/Todos';
 
 import logo from './logo.svg';
@@ -38,6 +39,25 @@ class App extends Component {
     }
   };
 
+  handleAddTodo = async (text) => {
+    console.log(`hello from handleAddTodo, text: ${text}`);
+    try {
+      const todo = await todoAPI.addTodo(text, this.state.authToken);
+      console.log(todo);
+      if (todo) {
+        this.setState((prevState) => {
+          return {
+            todos: prevState.todos.concat(todo)
+          };
+        });
+      } else {
+        throw new Error('no todo');
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   // Lifecycle Methods
   async componentDidMount() {
     const authToken = localStorage.getItem('authToken');
@@ -69,6 +89,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to Mark's Todos</h1>
         </header>
         <h3>Your Todos</h3>
+        <AddTodoForm handleAddTodo={this.handleAddTodo} />
         <Todos todos={this.state.todos} />
       </div>
     );
