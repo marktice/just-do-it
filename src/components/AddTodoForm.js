@@ -12,6 +12,7 @@ const AddTodoForm = (props) => {
     >
       <input type="text" name="text" />
       <button type="submit">Add</button>
+      <hr />
     </form>
   );
 };

@@ -1,11 +1,18 @@
 import React from 'react';
 
-const Todo = ({ text, completed }) => {
+const Todo = ({ _id, text, completed, handleDeleteTodo }) => {
   return (
-    <li>
+    <div className={completed ? 'todo-complete' : 'todo-incomplete'}>
       <p>{text}</p>
       {completed ? <p>Completed</p> : <p>Incomplete</p>}
-    </li>
+      <button
+        onClick={(e) => {
+          handleDeleteTodo(_id);
+        }}
+      >
+        X
+      </button>
+    </div>
   );
 };
 

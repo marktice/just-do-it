@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import todoAPI from './api/todoAPI';
 
+import todoAPI from './api/todoAPI';
 import LoginForm from './components/LoginForm';
 import AddTodoForm from './components/AddTodoForm';
 import Todos from './components/Todos';
@@ -54,7 +54,26 @@ class App extends Component {
         throw new Error('no todo');
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
+    }
+  };
+
+  handleDeleteTodo = async (id) => {
+    console.log(`hello from handleDeleteTodo, id: ${id}`);
+    try {
+      const todo = await todoAPI.deleteTodo(id, this.state.authToken);
+      console.log(`deleted todo: ${todo.text}`);
+      if (todo) {
+        this.setState((prevState) => {
+          return {
+            todos: prevState.todos.filter((todo) => todo._id !== id)
+          };
+        });
+      } else {
+        throw new Error('could not find todo to delete');
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -88,9 +107,8 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Mark's Todos</h1>
         </header>
-        <h3>Your Todos</h3>
         <AddTodoForm handleAddTodo={this.handleAddTodo} />
-        <Todos todos={this.state.todos} />
+        <Todos todos={this.state.todos} handleDeleteTodo={this.handleDeleteTodo} />
       </div>
     );
   }
