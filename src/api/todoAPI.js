@@ -40,9 +40,19 @@ const deleteTodo = async (id, authToken) => {
 };
 
 //TODO: updateTodo - mark as complete
-// const completeTodo = async (id, authToken) => {};
+const completeTodo = async (id, authToken) => {
+  const response = await axios.patch(
+    `/todos/${id}`,
+    { completed: true },
+    {
+      headers: { 'x-auth': authToken }
+    }
+  );
+  const todo = response.data.todo; // FIXME: is returned inside todo for this request
+  return todo;
+};
 
 //TODO: get single todo
 // const getTodo = async (id, authToken) => {};
 
-export default { userLogin, getTodos, addTodo, deleteTodo };
+export default { userLogin, getTodos, addTodo, deleteTodo, completeTodo };

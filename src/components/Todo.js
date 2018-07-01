@@ -1,17 +1,24 @@
 import React from 'react';
+import './Todo.css';
 
-const Todo = ({ _id, text, completed, handleDeleteTodo }) => {
+const Todo = ({
+  _id,
+  text,
+  completed,
+  completedAt,
+  handleDeleteTodo,
+  handleCompleteTodo
+}) => {
+  // const completedDate = new Date(completedAt);
+  // console.log(completedDate);
   return (
-    <div className={completed ? 'todo-complete' : 'todo-incomplete'}>
+    <div className={completed ? 'todo todo--complete' : 'todo todo--incomplete'}>
+      {completed && <p>{completedAt}</p>}
       <p>{text}</p>
-      {completed ? <p>Completed</p> : <p>Incomplete</p>}
-      <button
-        onClick={(e) => {
-          handleDeleteTodo(_id);
-        }}
-      >
-        X
-      </button>
+      <div>
+        {!completed && <button onClick={(e) => handleCompleteTodo(_id)}>√</button>}
+        <button onClick={(e) => handleDeleteTodo(_id)}>X</button>
+      </div>
     </div>
   );
 };

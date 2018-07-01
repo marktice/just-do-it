@@ -5,7 +5,6 @@ import LoginForm from './components/LoginForm';
 import AddTodoForm from './components/AddTodoForm';
 import Todos from './components/Todos';
 
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -77,6 +76,31 @@ class App extends Component {
     }
   };
 
+  handleCompleteTodo = async (id) => {
+    console.log(`hello from handleCompleteTodo, id: ${id}`);
+    try {
+      const completedTodo = await todoAPI.completeTodo(id, this.state.authToken);
+      console.log(`completed todo: ${completedTodo.text}`);
+      if (completedTodo) {
+        this.setState((prevState) => {
+          return {
+            todos: prevState.todos.map((todo) => {
+              if (todo._id !== id) {
+                return todo;
+              } else {
+                return completedTodo;
+              }
+            })
+          };
+        });
+      } else {
+        throw new Error('could not find todo to delete');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Lifecycle Methods
   async componentDidMount() {
     const authToken = localStorage.getItem('authToken');
@@ -101,14 +125,29 @@ class App extends Component {
         </div>
       );
     }
+    const inCompleteTodos = this.state.todos.filter((todo) => todo.completed === false);
+    const completeTodos = this.state.todos.filter((todo) => todo.completed === true);
+
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Mark's Todos</h1>
+          <h1 className="App-title">Mark's Todos</h1>
         </header>
         <AddTodoForm handleAddTodo={this.handleAddTodo} />
-        <Todos todos={this.state.todos} handleDeleteTodo={this.handleDeleteTodo} />
+        <h3>Todos</h3>
+        <Todos
+          className="todos--incomplete"
+          todos={inCompleteTodos}
+          handleDeleteTodo={this.handleDeleteTodo}
+          handleCompleteTodo={this.handleCompleteTodo}
+        />
+        <h3>Completed</h3>
+        <Todos
+          className="todos--complete"
+          todos={completeTodos}
+          handleDeleteTodo={this.handleDeleteTodo}
+          handleCompleteTodo={this.handleCompleteTodo}
+        />
       </div>
     );
   }

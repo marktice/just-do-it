@@ -1,8 +1,11 @@
 import React from 'react';
 
+import './AddTodoForm.css';
+
 const AddTodoForm = (props) => {
   return (
     <form
+      className="AddTodoForm"
       onSubmit={(e) => {
         e.preventDefault();
         const text = e.target.elements.text.value;
@@ -12,7 +15,6 @@ const AddTodoForm = (props) => {
     >
       <input type="text" name="text" />
       <button type="submit">Add</button>
-      <hr />
     </form>
   );
 };

@@ -1,0 +1,15 @@
+.todo {
+  transition: all 1s ease-in-out;
+  display: flex;
+  justify-content: space-around;
+}
+.todo:hover {
+  background: grey;
+}
+
+.todo--complete {
+  /* background: red; */
+}
+.todo--incomplete {
+  /* background: dodgerblue; */
+}
