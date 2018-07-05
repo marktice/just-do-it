@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
 import todoAPI from './api/todoAPI';
-import LoginForm from './components/LoginForm';
+
 import AddTodoForm from './components/AddTodoForm';
+import Header from './components/Header';
+import LoginForm from './components/LoginForm';
 import Todos from './components/Todos';
 
 import './App.css';
@@ -117,7 +119,7 @@ class App extends Component {
     if (!this.state.loggedIn) {
       return (
         <div>
-          <h3>Login</h3>
+          <Header />
           <LoginForm handleLogin={this.handleLogin} />
         </div>
       );
@@ -127,9 +129,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Mark's Todos</h1>
-        </header>
+        <Header />
         <div className="container">
           <AddTodoForm handleAddTodo={this.handleAddTodo} />
           <h3>Todos</h3>

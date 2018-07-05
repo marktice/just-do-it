@@ -1,0 +1,8 @@
+.header {
+  background-color: dodgerblue;
+  padding: 10px;
+  color: white;
+}
+.header__title {
+  text-align: center;
+}

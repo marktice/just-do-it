@@ -24,18 +24,9 @@ button:hover {
 .App {
   /* text-align: center; */
 }
-.App-title {
-  text-align: center;
-}
 
 .container {
-  max-width: 60rem;
+  max-width: 40rem;
   margin: 0 auto;
   padding: 0 16px;
-}
-
-.App-header {
-  background-color: dodgerblue;
-  padding: 10px;
-  color: white;
 }
