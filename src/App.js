@@ -8,7 +8,7 @@ import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import Todos from './components/Todos';
 
-import './App.css';
+import './styles/App.css';
 
 class App extends Component {
   state = {
@@ -57,6 +57,23 @@ class App extends Component {
           };
         });
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  handleLogout = async () => {
+    console.log(`hello from handleLogout`);
+    try {
+      localStorage.removeItem('authToken');
+      this.setState((prevState) => {
+        return {
+          loggedIn: false,
+          authToken: null,
+          todos: []
+        };
+      });
+      await todoAPI.logoutUser(this.state.authToken);
     } catch (error) {
       console.log(error);
     }
@@ -150,7 +167,7 @@ class App extends Component {
       // TODO: Loader Component
       return (
         <div>
-          <Header />
+          <Header loggedIn={false} />
           <div>Loading...kill nat</div>
         </div>
       );
@@ -158,9 +175,8 @@ class App extends Component {
 
     if (!this.state.loggedIn) {
       return (
-        // TODO: FINISH SIGNUP
         <div>
-          <Header />
+          <Header loggedIn={false} />
           <LoginForm handleLogin={this.handleLogin} />
           <SignUpForm handleSignUp={this.handleSignUp} />
         </div>
@@ -171,7 +187,7 @@ class App extends Component {
     const completeTodos = this.state.todos.filter((todo) => todo.completed === true);
     return (
       <div className="App">
-        <Header />
+        <Header loggedIn={true} handleLogout={this.handleLogout} />
         <div className="container">
           <AddTodoForm handleAddTodo={this.handleAddTodo} />
           <h3>Todos</h3>

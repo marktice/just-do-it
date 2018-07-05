@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import './Todo.css';
+import './../styles/components/Todo.css';
 
 const Todo = ({
   _id,

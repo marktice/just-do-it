@@ -1,8 +1,11 @@
 import React from 'react';
 
+import './../styles/components/UserForms.css';
+
 const SignUpForm = (props) => {
   return (
     <form
+      className="userForm"
       onSubmit={(e) => {
         e.preventDefault();
         console.log(`hello from handleSubmit`);
@@ -12,11 +15,11 @@ const SignUpForm = (props) => {
       }}
     >
       <h3>Sign-up</h3>
-      <div className="SignUpForm__input-group">
+      <div className="userForm__input-group">
         <label htmlFor="email">Email</label>
         <input type="email" name="email" />
       </div>
-      <div className="SignUpForm__input-group">
+      <div className="userForm__input-group">
         <label htmlFor="password">Password</label>
         <input type="password" name="password" />
       </div>

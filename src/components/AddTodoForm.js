@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './AddTodoForm.css';
+import './../styles/components/AddTodoForm.css';
 
 const AddTodoForm = (props) => {
   return (

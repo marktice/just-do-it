@@ -5,10 +5,16 @@ const loginUser = async (email, password) => {
   const response = await axios.post('users/login', { email, password });
   return { user: response.data, authToken: response.headers['x-auth'] };
 };
-//TODO: logout
+
 const createUser = async (email, password) => {
   const response = await axios.post('users', { email, password });
   return { user: response.data, authToken: response.headers['x-auth'] };
+};
+
+const logoutUser = async (authToken) => {
+  await axios.delete('/users/me/token', {
+    headers: { 'x-auth': authToken }
+  });
 };
 //TODO: get/me profile page
 
@@ -20,6 +26,8 @@ const getTodos = async (authToken) => {
   const todos = response.data.todos;
   return todos;
 };
+//TODO: get single todo
+// const getTodo = async (id, authToken) => {};
 
 const addTodo = async (text, authToken) => {
   console.log(`hello from addTodo, text: ${text}, authToken: ${authToken}`);
@@ -42,7 +50,6 @@ const deleteTodo = async (id, authToken) => {
   return todo;
 };
 
-//TODO: updateTodo - mark as complete
 const completeTodo = async (id, authToken) => {
   const response = await axios.patch(
     `/todos/${id}`,
@@ -54,8 +61,14 @@ const completeTodo = async (id, authToken) => {
   const todo = response.data.todo; // FIXME: is returned inside todo for this request
   return todo;
 };
+//TODO: updateTodo - edit todo details
 
-//TODO: get single todo
-// const getTodo = async (id, authToken) => {};
-
-export default { loginUser, createUser, getTodos, addTodo, deleteTodo, completeTodo };
+export default {
+  loginUser,
+  createUser,
+  logoutUser,
+  getTodos,
+  addTodo,
+  deleteTodo,
+  completeTodo
+};

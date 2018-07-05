@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './LoginForm.css';
+import './../styles/components/UserForms.css';
 
 const LoginForm = (props) => {
   const handleSubmit = (e) => {
@@ -12,13 +12,13 @@ const LoginForm = (props) => {
   };
 
   return (
-    <form className="LoginForm" onSubmit={handleSubmit}>
+    <form className="userForm" onSubmit={handleSubmit}>
       <h3>Login</h3>
-      <div className="LoginForm__input-group">
+      <div className="userForm__input-group">
         <label htmlFor="email">Email</label>
         <input type="email" name="email" />
       </div>
-      <div className="LoginForm__input-group">
+      <div className="userForm__input-group">
         <label htmlFor="password">Password</label>
         <input type="password" name="password" />
       </div>
