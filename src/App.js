@@ -5,6 +5,7 @@ import todoAPI from './api/todoAPI';
 import AddTodoForm from './components/AddTodoForm';
 import Header from './components/Header';
 import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
 import Todos from './components/Todos';
 
 import './App.css';
@@ -17,15 +18,14 @@ class App extends Component {
     todos: []
   };
 
+  // User methods
   handleLogin = async (email, password) => {
     try {
       // Login and set authToken
-      const { user, authToken } = await todoAPI.userLogin(email, password);
+      const { user, authToken } = await todoAPI.loginUser(email, password);
       localStorage.setItem('authToken', authToken);
-
       // Get Todos
       const todos = await todoAPI.getTodos(authToken);
-
       // Set State
       if (user.email === email) {
         this.setState((prevState) => {
@@ -41,6 +41,28 @@ class App extends Component {
     }
   };
 
+  handleSignUp = async (email, password) => {
+    try {
+      const { user, authToken } = await todoAPI.createUser(email, password);
+      localStorage.setItem('authToken', authToken);
+      // Get Todos
+      const todos = await todoAPI.getTodos(authToken);
+      // Set State
+      if (user.email === email) {
+        this.setState((prevState) => {
+          return {
+            loggedIn: true,
+            authToken,
+            todos
+          };
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Todo methods
   handleAddTodo = async (text) => {
     console.log(`hello from handleAddTodo, text: ${text}`);
     try {
@@ -125,7 +147,7 @@ class App extends Component {
 
   render() {
     if (!this.state.loaded) {
-      // TODO: Loader
+      // TODO: Loader Component
       return (
         <div>
           <Header />
@@ -136,15 +158,17 @@ class App extends Component {
 
     if (!this.state.loggedIn) {
       return (
+        // TODO: FINISH SIGNUP
         <div>
           <Header />
           <LoginForm handleLogin={this.handleLogin} />
+          <SignUpForm handleSignUp={this.handleSignUp} />
         </div>
       );
     }
+
     const inCompleteTodos = this.state.todos.filter((todo) => todo.completed === false);
     const completeTodos = this.state.todos.filter((todo) => todo.completed === true);
-
     return (
       <div className="App">
         <Header />

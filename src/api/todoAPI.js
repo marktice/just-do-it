@@ -1,12 +1,15 @@
 import axios from './todosAPIConfig';
 
 // Users requests
-const userLogin = async (email, password) => {
+const loginUser = async (email, password) => {
   const response = await axios.post('users/login', { email, password });
   return { user: response.data, authToken: response.headers['x-auth'] };
 };
 //TODO: logout
-//TODO: create
+const createUser = async (email, password) => {
+  const response = await axios.post('users', { email, password });
+  return { user: response.data, authToken: response.headers['x-auth'] };
+};
 //TODO: get/me profile page
 
 // Todos requests
@@ -55,4 +58,4 @@ const completeTodo = async (id, authToken) => {
 //TODO: get single todo
 // const getTodo = async (id, authToken) => {};
 
-export default { userLogin, getTodos, addTodo, deleteTodo, completeTodo };
+export default { loginUser, createUser, getTodos, addTodo, deleteTodo, completeTodo };
