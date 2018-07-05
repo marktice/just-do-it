@@ -11,6 +11,7 @@ import './App.css';
 
 class App extends Component {
   state = {
+    loaded: false,
     loggedIn: false,
     authToken: null,
     todos: []
@@ -107,6 +108,7 @@ class App extends Component {
       const todos = await todoAPI.getTodos(authToken);
       this.setState((prevState) => {
         return {
+          loaded: true,
           loggedIn: true,
           authToken,
           todos
@@ -116,6 +118,14 @@ class App extends Component {
   }
 
   render() {
+    if (!this.state.loaded) {
+      return (
+        <div>
+          <Header />Loading...kill nat
+        </div>
+      );
+    }
+
     if (!this.state.loggedIn) {
       return (
         <div>
