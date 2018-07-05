@@ -70,7 +70,7 @@ class App extends Component {
           };
         });
       } else {
-        throw new Error('could not find todo to delete');
+        throw new Error('Could not find todo to delete');
       }
     } catch (error) {
       console.log(error);
@@ -94,7 +94,7 @@ class App extends Component {
           };
         });
       } else {
-        throw new Error('could not find todo to delete');
+        throw new Error('Could not find todo to complete');
       }
     } catch (error) {
       console.log(error);
@@ -104,7 +104,13 @@ class App extends Component {
   // Lifecycle Methods
   async componentDidMount() {
     const authToken = localStorage.getItem('authToken');
-    if (authToken) {
+    if (!authToken) {
+      this.setState((prevState) => {
+        return {
+          loaded: true
+        };
+      });
+    } else {
       const todos = await todoAPI.getTodos(authToken);
       this.setState((prevState) => {
         return {
@@ -119,9 +125,11 @@ class App extends Component {
 
   render() {
     if (!this.state.loaded) {
+      // TODO: Loader
       return (
         <div>
-          <Header />Loading...kill nat
+          <Header />
+          <div>Loading...kill nat</div>
         </div>
       );
     }
