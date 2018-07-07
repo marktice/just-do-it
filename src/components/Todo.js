@@ -15,7 +15,7 @@ const Todo = ({
     <div className={completed ? 'todo todo--complete' : 'todo todo--incomplete'}>
       <p>{text}</p>
       <div>
-        {completed && <span>{moment(completedAt).format('MMM Do, h:ma')}</span>}
+        {completed && <span>{moment(completedAt).format('MMM Do, h:mma')}</span>}
         {!completed && <button onClick={(e) => handleCompleteTodo(_id)}>√</button>}
         <button onClick={(e) => handleDeleteTodo(_id)}>X</button>
       </div>

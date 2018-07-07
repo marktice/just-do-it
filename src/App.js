@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 import todoAPI from './api/todoAPI';
 
@@ -21,12 +22,11 @@ class App extends Component {
   // User methods
   handleLogin = async (email, password) => {
     try {
-      // Login and set authToken
+      // API first
       const { user, authToken } = await todoAPI.loginUser(email, password);
       localStorage.setItem('authToken', authToken);
-      // Get Todos
+
       const todos = await todoAPI.getTodos(authToken);
-      // Set State
       if (user.email === email) {
         this.setState((prevState) => {
           return {
@@ -43,11 +43,11 @@ class App extends Component {
 
   handleSignUp = async (email, password) => {
     try {
+      // API first
       const { user, authToken } = await todoAPI.createUser(email, password);
       localStorage.setItem('authToken', authToken);
-      // Get Todos
+
       const todos = await todoAPI.getTodos(authToken);
-      // Set State
       if (user.email === email) {
         this.setState((prevState) => {
           return {
@@ -64,6 +64,7 @@ class App extends Component {
 
   handleLogout = async () => {
     console.log(`hello from handleLogout`);
+    // State first
     try {
       localStorage.removeItem('authToken');
       this.setState((prevState) => {
@@ -83,60 +84,81 @@ class App extends Component {
   handleAddTodo = async (text) => {
     console.log(`hello from handleAddTodo, text: ${text}`);
     try {
-      const todo = await todoAPI.addTodo(text, this.state.authToken);
-      if (todo) {
-        this.setState((prevState) => {
-          return {
-            todos: prevState.todos.concat(todo)
-          };
-        });
-      } else {
-        throw new Error('no todo');
-      }
+      // State first
+      const tempTodo = {
+        text,
+        completed: false,
+        tempIdentifier: 'markymark'
+      };
+      this.setState((prevState) => {
+        return {
+          todos: prevState.todos.concat(tempTodo)
+        };
+      });
+
+      const realTodo = await todoAPI.addTodo(text, this.state.authToken);
+      this.setState((prevState) => {
+        const todos = prevState.todos.filter((todo) => todo !== tempTodo);
+        return {
+          todos: todos.concat(realTodo)
+        };
+      });
     } catch (error) {
       console.log(error);
+      this.setState((prevState) => {
+        return {
+          todos: prevState.todos
+        };
+      });
     }
   };
 
   handleDeleteTodo = async (id) => {
     console.log(`hello from handleDeleteTodo, id: ${id}`);
     try {
-      const todo = await todoAPI.deleteTodo(id, this.state.authToken);
-      if (todo) {
-        this.setState((prevState) => {
-          return {
-            todos: prevState.todos.filter((todo) => todo._id !== id)
-          };
-        });
-      } else {
-        throw new Error('Could not find todo to delete');
-      }
+      // State first
+      this.setState((prevState) => {
+        return {
+          todos: prevState.todos.filter((todo) => todo._id !== id)
+        };
+      });
+      await todoAPI.deleteTodo(id, this.state.authToken);
     } catch (error) {
       console.log(error);
+      this.setState((prevState) => {
+        return {
+          todos: prevState.todos
+        };
+      });
     }
   };
 
   handleCompleteTodo = async (id) => {
     console.log(`hello from handleCompleteTodo, id: ${id}`);
     try {
-      const completedTodo = await todoAPI.completeTodo(id, this.state.authToken);
-      if (completedTodo) {
-        this.setState((prevState) => {
-          return {
-            todos: prevState.todos.map((todo) => {
-              if (todo._id !== id) {
-                return todo;
-              } else {
-                return completedTodo;
-              }
-            })
-          };
+      // State first
+      this.setState((prevState) => {
+        const todos = prevState.todos.map((todo) => {
+          if (todo._id !== id) {
+            return todo;
+          } else {
+            todo.completed = true;
+            todo.completedAt = new Date();
+            return todo;
+          }
         });
-      } else {
-        throw new Error('Could not find todo to complete');
-      }
+        return {
+          todos
+        };
+      });
+      await todoAPI.completeTodo(id, this.state.authToken);
     } catch (error) {
       console.log(error);
+      this.setState((prevState) => {
+        return {
+          todos: prevState.todos
+        };
+      });
     }
   };
 
@@ -185,6 +207,7 @@ class App extends Component {
 
     const inCompleteTodos = this.state.todos.filter((todo) => todo.completed === false);
     const completeTodos = this.state.todos.filter((todo) => todo.completed === true);
+    const orderedCompleteTodos = _.orderBy(completeTodos, 'completedAt', 'desc');
     return (
       <div className="App">
         <Header loggedIn={true} handleLogout={this.handleLogout} />
@@ -193,14 +216,14 @@ class App extends Component {
           <h3>Todos</h3>
           <Todos
             className="todos--incomplete"
-            todos={inCompleteTodos}
+            todos={inCompleteTodos.reverse()}
             handleDeleteTodo={this.handleDeleteTodo}
             handleCompleteTodo={this.handleCompleteTodo}
           />
           <h3>Completed</h3>
           <Todos
             className="todos--complete"
-            todos={completeTodos}
+            todos={orderedCompleteTodos}
             handleDeleteTodo={this.handleDeleteTodo}
             handleCompleteTodo={this.handleCompleteTodo}
           />
