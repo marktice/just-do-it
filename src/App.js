@@ -83,13 +83,15 @@ class App extends Component {
   // Todo methods
   handleAddTodo = async (text) => {
     console.log(`hello from handleAddTodo, text: ${text}`);
+    // temporary todo for state
+    const tempTodo = {
+      text,
+      completed: false,
+      tempIdentifier: 'markymark'
+    };
+
     try {
       // State first
-      const tempTodo = {
-        text,
-        completed: false,
-        tempIdentifier: 'markymark'
-      };
       this.setState((prevState) => {
         return {
           todos: prevState.todos.concat(tempTodo)
@@ -106,8 +108,9 @@ class App extends Component {
     } catch (error) {
       console.log(error);
       this.setState((prevState) => {
+        const todos = prevState.todos.filter((todo) => todo !== tempTodo);
         return {
-          todos: prevState.todos
+          todos
         };
       });
     }
@@ -115,6 +118,7 @@ class App extends Component {
 
   handleDeleteTodo = async (id) => {
     console.log(`hello from handleDeleteTodo, id: ${id}`);
+    const todo = this.state.todos.find((todo) => todo._id === id);
     try {
       // State first
       this.setState((prevState) => {
@@ -125,9 +129,10 @@ class App extends Component {
       await todoAPI.deleteTodo(id, this.state.authToken);
     } catch (error) {
       console.log(error);
+      // replace original todo
       this.setState((prevState) => {
         return {
-          todos: prevState.todos
+          todos: prevState.todos.concat(todo)
         };
       });
     }
@@ -151,12 +156,22 @@ class App extends Component {
           todos
         };
       });
+
       await todoAPI.completeTodo(id, this.state.authToken);
     } catch (error) {
       console.log(error);
       this.setState((prevState) => {
+        const todos = prevState.todos.map((todo) => {
+          if (todo._id !== id) {
+            return todo;
+          } else {
+            todo.completed = false;
+            todo.completedAt = null;
+            return todo;
+          }
+        });
         return {
-          todos: prevState.todos
+          todos
         };
       });
     }
@@ -207,26 +222,36 @@ class App extends Component {
 
     const inCompleteTodos = this.state.todos.filter((todo) => todo.completed === false);
     const completeTodos = this.state.todos.filter((todo) => todo.completed === true);
-    const orderedCompleteTodos = _.orderBy(completeTodos, 'completedAt', 'desc');
+
     return (
       <div className="App">
         <Header loggedIn={true} handleLogout={this.handleLogout} />
         <div className="container">
           <AddTodoForm handleAddTodo={this.handleAddTodo} />
-          <h3>Todos</h3>
-          <Todos
-            className="todos--incomplete"
-            todos={inCompleteTodos.reverse()}
-            handleDeleteTodo={this.handleDeleteTodo}
-            handleCompleteTodo={this.handleCompleteTodo}
-          />
-          <h3>Completed</h3>
-          <Todos
-            className="todos--complete"
-            todos={orderedCompleteTodos}
-            handleDeleteTodo={this.handleDeleteTodo}
-            handleCompleteTodo={this.handleCompleteTodo}
-          />
+
+          {inCompleteTodos.length > 0 && (
+            <div className="inComplete-todos">
+              <h3>Todos</h3>
+              <Todos
+                className="inComplete-todos__list"
+                todos={inCompleteTodos.reverse()}
+                handleDeleteTodo={this.handleDeleteTodo}
+                handleCompleteTodo={this.handleCompleteTodo}
+              />
+            </div>
+          )}
+
+          {completeTodos.length > 0 && (
+            <div className="completed-todos">
+              <h3>Completed</h3>
+              <Todos
+                className="complete-todos__list"
+                todos={_.orderBy(completeTodos, 'completedAt', 'desc')}
+                handleDeleteTodo={this.handleDeleteTodo}
+                handleCompleteTodo={this.handleCompleteTodo}
+              />
+            </div>
+          )}
         </div>
       </div>
     );
