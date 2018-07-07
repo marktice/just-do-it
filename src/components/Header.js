@@ -15,6 +15,20 @@ const Header = (props) => {
         </button>
       )}
       <h1 className="header__title">Just Do It</h1>
+
+      {props.loggedIn && (
+        <div className="gif-toggle">
+          <label htmlFor="gifs">Shia gifs? </label>
+          <input
+            defaultChecked
+            type="checkbox"
+            name="gifs"
+            onChange={(e) => {
+              props.handleGifToggle(e.target.checked);
+            }}
+          />
+        </div>
+      )}
     </header>
   );
 };

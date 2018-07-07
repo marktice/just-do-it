@@ -5,18 +5,30 @@ import todoAPI from './api/todoAPI';
 
 import AddTodoForm from './components/AddTodoForm';
 import Header from './components/Header';
+import Loader from './components/Loader';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import Todos from './components/Todos';
 
 import './styles/App.css';
+import transitions from './styles/transitions';
 
 class App extends Component {
   state = {
     loaded: false,
     loggedIn: false,
     authToken: null,
+    gifs: true,
     todos: []
+  };
+
+  handleGifToggle = (gifs) => {
+    console.log('gifs', gifs);
+    this.setState((prevState) => {
+      return {
+        gifs
+      };
+    });
   };
 
   // User methods
@@ -83,6 +95,11 @@ class App extends Component {
   // Todo methods
   handleAddTodo = async (text) => {
     console.log(`hello from handleAddTodo, text: ${text}`);
+
+    if (this.state.gifs) {
+      transitions.createTodo();
+    }
+
     // temporary todo for state
     const tempTodo = {
       text,
@@ -118,6 +135,11 @@ class App extends Component {
 
   handleDeleteTodo = async (id) => {
     console.log(`hello from handleDeleteTodo, id: ${id}`);
+
+    if (this.state.gifs) {
+      transitions.deleteTodo();
+    }
+
     const todo = this.state.todos.find((todo) => todo._id === id);
     try {
       // State first
@@ -140,6 +162,11 @@ class App extends Component {
 
   handleCompleteTodo = async (id) => {
     console.log(`hello from handleCompleteTodo, id: ${id}`);
+
+    if (this.state.gifs) {
+      transitions.completeTodo();
+    }
+
     try {
       // State first
       this.setState((prevState) => {
@@ -201,11 +228,10 @@ class App extends Component {
 
   render() {
     if (!this.state.loaded) {
-      // TODO: Loader Component
       return (
         <div>
           <Header loggedIn={false} />
-          <div>Loading...kill nat</div>
+          <Loader />
         </div>
       );
     }
@@ -225,12 +251,16 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header loggedIn={true} handleLogout={this.handleLogout} />
+        <Header
+          loggedIn={true}
+          handleLogout={this.handleLogout}
+          handleGifToggle={this.handleGifToggle}
+        />
         <div className="container">
           <AddTodoForm handleAddTodo={this.handleAddTodo} />
 
           {inCompleteTodos.length > 0 && (
-            <div className="inComplete-todos">
+            <div className="todos inComplete-todos">
               <h3>Todos</h3>
               <Todos
                 className="inComplete-todos__list"
@@ -242,7 +272,7 @@ class App extends Component {
           )}
 
           {completeTodos.length > 0 && (
-            <div className="completed-todos">
+            <div className="todos completed-todos">
               <h3>Completed</h3>
               <Todos
                 className="complete-todos__list"
