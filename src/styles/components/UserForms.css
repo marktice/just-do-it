@@ -1,6 +1,19 @@
 .userForm {
   margin: 0 auto;
   max-width: 30rem;
+  background: white;
+  opacity: 0.75;
+  border-radius: 6px;
+}
+.userForm h3 {
+  color: black;
+  text-align: center;
+}
+.userForm button {
+  width: 100%;
+  background: aquamarine;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .userForm__input-group {

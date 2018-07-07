@@ -9,8 +9,12 @@ const Header = (props) => {
 
   return (
     <header className="header">
-      <h1 className="header__title">Your Todos</h1>
-      {props.loggedIn && <button onClick={handleClick}>Logout</button>}
+      {props.loggedIn && (
+        <button className="btn-logout" onClick={handleClick}>
+          Logout
+        </button>
+      )}
+      <h1 className="header__title">Just Do It</h1>
     </header>
   );
 };

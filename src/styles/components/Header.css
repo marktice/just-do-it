@@ -1,8 +1,14 @@
 .header {
-  background-color: rgb(61, 230, 61);
-  padding: 10px;
-  color: white;
+  /* background-color: rgb(61, 230, 61); */
+  /* background-image: url('https://media1.tenor.com/images/79289939df4799564cff7175d222051e/tenor.gif?itemid=4939398');
+  background-size: cover; */
+  padding: 5px;
 }
 .header__title {
   text-align: center;
+  margin: 0;
+}
+
+.btn-logout {
+  display: inline-block;
 }

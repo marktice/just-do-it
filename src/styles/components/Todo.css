@@ -2,12 +2,19 @@
   transition: all 0.5s ease-in-out;
   padding: 10px;
   margin-bottom: 10px;
+  background: white;
+  opacity: 0.9;
   border: 1px solid rgba(128, 128, 128, 0.514);
   display: flex;
   justify-content: space-between;
 }
+.todo p {
+  margin: 8px 0;
+  max-width: 50%;
+}
 .todo:hover {
   background: lightgoldenrodyellow;
+  opacity: 1;
 }
 
 .todo--incomplete {
@@ -18,8 +25,13 @@
   /* background: red; */
   color: lightgray;
 }
+.todo__header {
+  color: white;
+}
 
 .todo button {
-  margin-left: 10px;
+  margin-left: 6px;
   height: 100%;
+  padding: 1px 0.5rem;
+  /* width: 3rem; */
 }

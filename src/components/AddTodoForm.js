@@ -13,7 +13,7 @@ const AddTodoForm = (props) => {
         e.target.reset();
       }}
     >
-      <input type="text" name="text" />
+      <input type="text" name="text" maxLength="40" required />
       <button type="submit">Add</button>
     </form>
   );

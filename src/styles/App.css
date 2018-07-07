@@ -10,6 +10,17 @@ html {
 
 body {
   font-family: Helvetica, sans-serif;
+  /* background-image: url('https://media1.tenor.com/images/79289939df4799564cff7175d222051e/tenor.gif?itemid=4939398'); */
+  background-image: url('https://i.ytimg.com/vi/ZXsQAXx_ao0/maxresdefault.jpg');
+  background-size: auto;
+  background-repeat: no-repeat;
+  word-break: break-all;
+}
+
+h1,
+h2,
+h3 {
+  color: white;
 }
 
 button {
