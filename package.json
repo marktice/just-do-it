@@ -17,5 +17,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "main": "index.js",
+  "repository": "https://github.com/marktice/just-do-it.git",
+  "author": "Mark Tice <marktice@protonmail.com>",
+  "license": "MIT"
 }
