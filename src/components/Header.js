@@ -18,7 +18,7 @@ const Header = (props) => {
 
       {props.loggedIn && (
         <div className="gif-toggle">
-          <label htmlFor="gifs">Shia gifs? </label>
+          <label htmlFor="gifs">Shia gifs?</label>
           <input
             defaultChecked
             type="checkbox"

@@ -2,8 +2,9 @@
   margin: 0 auto;
   max-width: 30rem;
   background: white;
-  opacity: 0.75;
-  border-radius: 6px;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 30px;
 }
 .userForm h3 {
   color: black;
@@ -12,12 +13,17 @@
 .userForm button {
   width: 100%;
   background: aquamarine;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.userForm__error {
+  color: red;
+  text-align: center;
 }
 
 .userForm__input-group {
-  margin-bottom: 10px;
+  margin: 5px;
+  margin-bottom: 15px;
 }
 .userForm__input-group label {
   margin-bottom: 5px;
