@@ -1,6 +1,5 @@
 html {
   box-sizing: border-box;
-  /* background: grey; */
 }
 
 *,
@@ -11,13 +10,8 @@ html {
 
 body {
   font-family: Helvetica, sans-serif;
-  /* background-image: url('https://i.ytimg.com/vi/ZXsQAXx_ao0/maxresdefault.jpg'); */
-  /* background-repeat: no-repeat; */
   word-break: break-all;
-
   background: rgb(98, 214, 132);
-  /* background-image: url('https://media1.tenor.com/images/79289939df4799564cff7175d222051e/tenor.gif?itemid=4939398'); */
-  /* background-image: url('./../img/justDoIt.gif'); */
   background-size: 100vw;
   background-position: 0 100px;
   background-repeat: no-repeat;
@@ -32,7 +26,7 @@ h3 {
 button {
   cursor: pointer;
   background-color: whitesmoke;
-  color: green;
+  color: lightcoral;
 }
 button:hover {
   background-color: lightgrey;

@@ -1,9 +1,8 @@
 .userForm {
-  margin: 0 auto;
+  margin: 25px auto;
   max-width: 30rem;
   border-radius: 3px;
-  padding: 5px;
-  margin: 30px;
+  padding: 15px;
 }
 .userForm--loginType {
   background: dodgerblue;
@@ -24,7 +23,7 @@
   background: salmon;
 }
 .userForm__error {
-  color: red;
+  color: lightsalmon;
   text-align: center;
 }
 .userForm__content {

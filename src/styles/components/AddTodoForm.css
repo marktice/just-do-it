@@ -2,3 +2,8 @@
   margin: 15px 0;
   text-align: center;
 }
+
+.no-todos-message {
+  text-align: center;
+  color: lightgoldenrodyellow;
+}

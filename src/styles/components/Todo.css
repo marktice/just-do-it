@@ -17,7 +17,6 @@
 }
 .todo:hover {
   background: lightgoldenrodyellow;
-  opacity: 1;
 }
 
 .todo--incomplete {

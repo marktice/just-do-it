@@ -22,7 +22,6 @@ const createTodo = () => {
 const deleteTodo = () => {
   document.body.style.backgroundImage =
     "url('https://media1.tenor.com/images/6f73766b1ce96ac1fb7aee33a8b3f3b5/tenor.gif?itemid=5129495')";
-
   const todoElements = document.getElementsByClassName('todos');
   const todoArray = Array.apply(null, todoElements);
   todoArray.forEach((element) => {

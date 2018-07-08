@@ -259,6 +259,9 @@ class App extends Component {
         />
         <div className="container">
           <AddTodoForm handleAddTodo={this.handleAddTodo} />
+          {this.state.todos.length === 0 && (
+            <p className="no-todos-message">Add something to get started</p>
+          )}
 
           {inCompleteTodos.length > 0 && (
             <div className="todos inComplete-todos">
