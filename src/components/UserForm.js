@@ -12,7 +12,6 @@ class UserForm extends Component {
   };
 
   handleSubmit = async (e) => {
-    console.log(`hello from handle submit`);
     this.setState((prevState) => {
       return {
         loggingIn: true
@@ -78,11 +77,11 @@ class UserForm extends Component {
         <div className="userForm__content">
           <div className="userForm__input-group">
             <label htmlFor="email">Email</label>
-            <input type="email" name="email" />
+            <input type="email" name="email" defaultValue="test@email.com" />
           </div>
           <div className="userForm__input-group">
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" />
+            <input type="password" name="password" defaultValue="password123" />
           </div>
         </div>
 

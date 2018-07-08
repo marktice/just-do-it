@@ -30,7 +30,6 @@ const getTodos = async (authToken) => {
 // const getTodo = async (id, authToken) => {};
 
 const addTodo = async (text, authToken) => {
-  console.log(`hello from addTodo, text: ${text}, authToken: ${authToken}`);
   const response = await axios.post(
     '/todos',
     { text },

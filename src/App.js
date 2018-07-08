@@ -22,7 +22,6 @@ class App extends Component {
   };
 
   handleGifToggle = (gifs) => {
-    console.log('gifs', gifs);
     this.setState((prevState) => {
       return {
         gifs
@@ -41,14 +40,7 @@ class App extends Component {
         throw new Error('Bad user action');
       }
 
-      console.log('handleUser');
-      console.log('user');
-      console.log(user);
-      console.log('authtoken');
-      console.log(authToken);
-
       localStorage.setItem('authToken', authToken);
-
       const todos = await todoAPI.getTodos(authToken);
       if (user.email === email) {
         this.setState((prevState) => {
@@ -66,7 +58,6 @@ class App extends Component {
   };
 
   handleLogout = async () => {
-    console.log(`hello from handleLogout`);
     // State first
     try {
       localStorage.removeItem('authToken');
@@ -85,8 +76,6 @@ class App extends Component {
 
   // Todo methods
   handleAddTodo = async (text) => {
-    console.log(`hello from handleAddTodo, text: ${text}`);
-
     if (this.state.gifs) {
       transitions.createTodo();
     }
@@ -125,8 +114,6 @@ class App extends Component {
   };
 
   handleDeleteTodo = async (id) => {
-    console.log(`hello from handleDeleteTodo, id: ${id}`);
-
     if (this.state.gifs) {
       transitions.deleteTodo();
     }
@@ -152,8 +139,6 @@ class App extends Component {
   };
 
   handleCompleteTodo = async (id) => {
-    console.log(`hello from handleCompleteTodo, id: ${id}`);
-
     if (this.state.gifs) {
       transitions.completeTodo();
     }
