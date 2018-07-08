@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Loader from './components/Loader';
 import UserForm from './components/UserForm';
 import Todos from './components/Todos';
+import Welcome from './components/Welcome';
 
 import './styles/App.css';
 import transitions from './styles/transitions';
@@ -227,6 +228,7 @@ class App extends Component {
       return (
         <div>
           <Header loggedIn={false} />
+          <Welcome />
           <UserForm handleUser={this.handleUser} />
         </div>
       );
