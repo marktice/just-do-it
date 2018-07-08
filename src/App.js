@@ -6,8 +6,7 @@ import todoAPI from './api/todoAPI';
 import AddTodoForm from './components/AddTodoForm';
 import Header from './components/Header';
 import Loader from './components/Loader';
-import LoginForm from './components/LoginForm';
-import SignUpForm from './components/SignUpForm';
+import UserForm from './components/UserForm';
 import Todos from './components/Todos';
 
 import './styles/App.css';
@@ -32,10 +31,22 @@ class App extends Component {
   };
 
   // User methods
-  handleLogin = async (email, password) => {
+  handleUser = async (action, email, password) => {
     try {
-      // API first
-      const { user, authToken } = await todoAPI.loginUser(email, password);
+      if (action === 'login') {
+        var { user, authToken } = await todoAPI.loginUser(email, password);
+      } else if (action === 'signUp') {
+        var { user, authToken } = await todoAPI.createUser(email, password);
+      } else {
+        throw new Error('Bad user action');
+      }
+
+      console.log('handleUser');
+      console.log('user');
+      console.log(user);
+      console.log('authtoken');
+      console.log(authToken);
+
       localStorage.setItem('authToken', authToken);
 
       const todos = await todoAPI.getTodos(authToken);
@@ -51,27 +62,6 @@ class App extends Component {
     } catch (error) {
       console.log(error);
       return error;
-    }
-  };
-
-  handleSignUp = async (email, password) => {
-    try {
-      // API first
-      const { user, authToken } = await todoAPI.createUser(email, password);
-      localStorage.setItem('authToken', authToken);
-
-      const todos = await todoAPI.getTodos(authToken);
-      if (user.email === email) {
-        this.setState((prevState) => {
-          return {
-            loggedIn: true,
-            authToken,
-            todos
-          };
-        });
-      }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -209,12 +199,14 @@ class App extends Component {
   async componentDidMount() {
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
-      this.setState((prevState) => {
+      return this.setState((prevState) => {
         return {
           loaded: true
         };
       });
-    } else {
+    }
+
+    try {
       const todos = await todoAPI.getTodos(authToken);
       this.setState((prevState) => {
         return {
@@ -222,6 +214,15 @@ class App extends Component {
           loggedIn: true,
           authToken,
           todos
+        };
+      });
+    } catch (error) {
+      console.log(error);
+      localStorage.removeItem('authToken');
+      this.setState((prevState) => {
+        return {
+          loaded: true,
+          authToken: null
         };
       });
     }
@@ -241,8 +242,7 @@ class App extends Component {
       return (
         <div>
           <Header loggedIn={false} />
-          <LoginForm handleLogin={this.handleLogin} />
-          <SignUpForm handleSignUp={this.handleSignUp} />
+          <UserForm handleUser={this.handleUser} />
         </div>
       );
     }

@@ -5,7 +5,7 @@ const createTodo = () => {
   const todoElements = document.getElementsByClassName('todos');
   const todoArray = Array.apply(null, todoElements);
   todoArray.forEach((element) => {
-    element.style.opacity = 0.25;
+    element.style.opacity = 0.15;
   });
 
   setTimeout(
@@ -15,7 +15,7 @@ const createTodo = () => {
         element.style.opacity = 1;
       })
     ),
-    2380
+    2200
   );
 };
 
@@ -26,7 +26,7 @@ const deleteTodo = () => {
   const todoElements = document.getElementsByClassName('todos');
   const todoArray = Array.apply(null, todoElements);
   todoArray.forEach((element) => {
-    element.style.opacity = 0.25;
+    element.style.opacity = 0.15;
   });
 
   setTimeout(
@@ -47,7 +47,7 @@ const completeTodo = () => {
   const todoElements = document.getElementsByClassName('todos');
   const todoArray = Array.apply(null, todoElements);
   todoArray.forEach((element) => {
-    element.style.opacity = 0.25;
+    element.style.opacity = 0.15;
   });
 
   setTimeout(

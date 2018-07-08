@@ -1,33 +1,64 @@
 .userForm {
   margin: 0 auto;
   max-width: 30rem;
-  background: white;
   border-radius: 3px;
   padding: 5px;
   margin: 30px;
 }
-.userForm h3 {
-  color: black;
-  text-align: center;
+.userForm--loginType {
+  background: dodgerblue;
 }
+.userForm--signUpType {
+  background: lightgoldenrodyellow;
+}
+
 .userForm button {
   width: 100%;
-  background: aquamarine;
+  padding: 0.5rem 0;
+  background: lightsalmon;
+  color: rgb(34, 29, 29);
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+.userForm button:hover {
+  background: salmon;
 }
 .userForm__error {
   color: red;
   text-align: center;
 }
-
+.userForm__content {
+  padding-top: 15px;
+}
 .userForm__input-group {
-  margin: 5px;
   margin-bottom: 15px;
 }
 .userForm__input-group label {
-  margin-bottom: 5px;
+  color: rgb(34, 29, 29);
 }
 .userForm__input-group input {
+  color: rgb(34, 29, 29);
+  margin-top: 5px;
   width: 100%;
+  padding: 0.25rem;
+}
+
+.userForm--type-toggle {
+  display: flex;
+  justify-content: space-evenly;
+}
+.userForm--type-toggle a {
+  color: rgb(34, 29, 29);
+  font-size: 1.25rem;
+  text-decoration: underline;
+  cursor: pointer;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+}
+.login-toggle {
+  background: dodgerblue;
+}
+.signUp-toggle {
+  background: lightgoldenrodyellow;
 }
