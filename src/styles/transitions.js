@@ -2,8 +2,10 @@ const createTodo = () => {
   document.body.style.backgroundImage =
     "url('https://media1.tenor.com/images/79289939df4799564cff7175d222051e/tenor.gif?itemid=4939398')";
 
-  const todoElements = document.getElementsByClassName('todos');
-  const todoArray = Array.apply(null, todoElements);
+  const todoElements = document.getElementsByClassName('todos-container');
+  console.log(todoElements);
+  const todoArray = Array.from(todoElements);
+  console.log(todoArray);
   todoArray.forEach((element) => {
     element.style.opacity = 0.15;
   });
@@ -22,8 +24,8 @@ const createTodo = () => {
 const deleteTodo = () => {
   document.body.style.backgroundImage =
     "url('https://media1.tenor.com/images/6f73766b1ce96ac1fb7aee33a8b3f3b5/tenor.gif?itemid=5129495')";
-  const todoElements = document.getElementsByClassName('todos');
-  const todoArray = Array.apply(null, todoElements);
+  const todoElements = document.getElementsByClassName('todos-container');
+  const todoArray = Array.from(todoElements);
   todoArray.forEach((element) => {
     element.style.opacity = 0.15;
   });
@@ -43,8 +45,8 @@ const completeTodo = () => {
   document.body.style.backgroundImage =
     "url('https://media1.tenor.com/images/3c83d2e511241c0f3b9f6fe5eb11f6b9/tenor.gif?itemid=5506619')";
 
-  const todoElements = document.getElementsByClassName('todos');
-  const todoArray = Array.apply(null, todoElements);
+  const todoElements = document.getElementsByClassName('todos-container');
+  const todoArray = Array.from(todoElements);
   todoArray.forEach((element) => {
     element.style.opacity = 0.15;
   });

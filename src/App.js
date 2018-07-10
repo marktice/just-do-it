@@ -160,7 +160,6 @@ class App extends Component {
           todos
         };
       });
-
       await todoAPI.completeTodo(id, this.state.authToken);
     } catch (error) {
       console.log(error);
@@ -223,7 +222,6 @@ class App extends Component {
         </div>
       );
     }
-
     if (!this.state.loggedIn) {
       return (
         <div>
@@ -249,30 +247,30 @@ class App extends Component {
           {this.state.todos.length === 0 && (
             <p className="no-todos-message">Add something to get started</p>
           )}
-
-          {inCompleteTodos.length > 0 && (
-            <div className="todos inComplete-todos">
-              <h3>Todos</h3>
-              <Todos
-                className="inComplete-todos__list"
-                todos={inCompleteTodos.reverse()}
-                handleDeleteTodo={this.handleDeleteTodo}
-                handleCompleteTodo={this.handleCompleteTodo}
-              />
-            </div>
-          )}
-
-          {completeTodos.length > 0 && (
-            <div className="todos completed-todos">
-              <h3>Completed</h3>
-              <Todos
-                className="complete-todos__list"
-                todos={_.orderBy(completeTodos, 'completedAt', 'desc')}
-                handleDeleteTodo={this.handleDeleteTodo}
-                handleCompleteTodo={this.handleCompleteTodo}
-              />
-            </div>
-          )}
+          <div className="todos-container">
+            {inCompleteTodos.length > 0 && (
+              <div className="todos inComplete-todos">
+                <h3>Todos</h3>
+                <Todos
+                  className="inComplete-todos__list"
+                  todos={inCompleteTodos.reverse()}
+                  handleDeleteTodo={this.handleDeleteTodo}
+                  handleCompleteTodo={this.handleCompleteTodo}
+                />
+              </div>
+            )}
+            {completeTodos.length > 0 && (
+              <div className="todos completed-todos">
+                <h3>Completed</h3>
+                <Todos
+                  className="complete-todos__list"
+                  todos={_.orderBy(completeTodos, 'completedAt', 'desc')}
+                  handleDeleteTodo={this.handleDeleteTodo}
+                  handleCompleteTodo={this.handleCompleteTodo}
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
